@@ -7,6 +7,7 @@ import CaptionStyle from './_component/CaptionStyle';
 import { Button } from '@/components/ui/button';
 import { WandSparkles } from 'lucide-react';
 import Preview from './_component/Preview';
+import axios from 'axios';
 
 
 function page() {
@@ -18,6 +19,17 @@ function page() {
         }))
     }
     console.log(FormData);
+    const GEnrateNewVideo = async () => {
+        if (!FormData.script || !FormData.topic || !FormData.VideoStyle || !FormData.voice || !FormData.captions) {
+            console.log(' Error :Please fill all the fields');
+            return;
+        }
+        const respoce = await axios.post('/api/genrate-video-data', {
+            ...FormData
+        });
+        console.log(respoce);
+    }
+
     return (
         <div>
 
@@ -32,7 +44,9 @@ function page() {
                     <AudioStyle HandelChange={HandelChange} />
                     {/* captions */}
                     <CaptionStyle HandelChange={HandelChange} />
-                    <Button className={'mt-3 w-full'}><WandSparkles /> Genrate Video</Button>
+                    <Button className={'mt-3 w-full'}
+                        onClick={GEnrateNewVideo}
+                    ><WandSparkles /> Genrate Video</Button>
 
                 </div>
                 <div>

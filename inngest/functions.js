@@ -12,7 +12,7 @@ export const helloWorld = inngest.createFunction(
 const BASE_URL = 'https://aigurulab.tech';
 export const GenrateVideoData = inngest.createFunction(
     { id: "generate-video-data" },
-    { event: "test/generate.video.data" },
+    { event: "generate.video.data" },
 
     async ({ event, step }) => {
         //Genrate Audio File 
@@ -22,8 +22,8 @@ export const GenrateVideoData = inngest.createFunction(
             async () => {
                 const result = await axios.post(BASE_URL + '/api/text-to-speech',
                     {
-                        input: 'Sample Audio Text',
-                        voice: 'am_michael'
+                        input: script,
+                        voice: voice,
                     },
                     {
                         headers: {
@@ -33,7 +33,7 @@ export const GenrateVideoData = inngest.createFunction(
                     })
                 console.log(result.data.audio) //Output Result: Audio Mp3 Url
 
-                return "audio-file-url";
+                return result.data.audio;
             });
         //Genrate Caption File
 
@@ -42,7 +42,8 @@ export const GenrateVideoData = inngest.createFunction(
         //genrate images from the prompt
 
         //Save all data to database
-        
+        //header file in the xcfv
+        return GenrateAudioFile
 
     }
 );
